@@ -13,8 +13,9 @@ url http://localhost:8080/todo-list
 request
 ```json
 {
-  "title" : "제목",
-  "description":"일정 내용"
+    "title" : "일정",
+    "description" : "할일",
+    "userId": 1
 }
 ```
 response
@@ -23,7 +24,7 @@ response
 ```json
 {
     "id": 1,
-    "name": "지영",
+    "username": "지영",
     "title" : "제목",
     "description":"일정 내용",
     "created_at" : "2025-11-3 11:27",
