@@ -1,6 +1,7 @@
 # 일정 관리 앱 프로젝트
 ## ERD
-![Todo ERD](https://github.com/user-attachments/assets/600147a3-d42c-40e8-825f-90e2c3dd67ed)
+![Todo ERD](https://github.com/user-attachments/assets/ef15c018-a0b0-4d76-838a-581b17e53145)
+
 ## CRUD 명세
 ### POST
 url http://localhost:8080/todo-list
