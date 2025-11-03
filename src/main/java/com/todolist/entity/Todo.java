@@ -11,8 +11,9 @@ public class Todo  extends BaseEntity{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    @Column(unique=true,nullable = false)
+    @Column(length=50,nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
     private String title;
     private String description;

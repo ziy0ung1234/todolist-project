@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -94,12 +95,12 @@ public class TodoService {
         );
     }
 
-    public void delete(Long todoId) {
-        boolean isExist =  todoRepository.existsById(todoId);
-        if(isExist){
-            todoRepository.deleteById(todoId);
-        } else {
-            throw new IllegalArgumentException("존재하지 않는 글입니다.");
+    public void delete(Long todoId, DeleteTodoRequest request) {
+        Todo todo = todoRepository.findById(todoId).orElseThrow(
+                () -> new IllegalArgumentException("존재하지않는 글입니다."));
+        if(!Objects.equals(todo.getPassword(), request.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
+        todoRepository.deleteById(todoId);
     }
 }
