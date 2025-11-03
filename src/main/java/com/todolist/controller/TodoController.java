@@ -26,4 +26,11 @@ public class TodoController {
     public ResponseEntity<List<GetOneTodoResponse>> getAllTodos(@RequestParam(required=false) String username) {
         return ResponseEntity.status(HttpStatus.OK).body(todoService.findAll(username));
     }
+    @PatchMapping("/todos/{todoId}")
+    public ResponseEntity<UpdateTodoResponse> updateTodo(
+            @PathVariable Long todoId,
+            @RequestBody UpdateTodoRequest request
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(todoService.update(todoId, request));
+    }
 }
