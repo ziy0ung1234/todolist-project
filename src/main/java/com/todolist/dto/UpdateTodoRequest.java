@@ -3,10 +3,8 @@ package com.todolist.dto;
 import lombok.Getter;
 
 @Getter
-public class CreateTodoRequest {
+public class UpdateTodoRequest {
     private String title;
-    private String description;
     private String username;
     private String password;
-
 }
