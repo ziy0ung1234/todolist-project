@@ -93,4 +93,13 @@ public class TodoService {
                 todo.getModifiedAt()
         );
     }
+
+    public void delete(Long todoId) {
+        boolean isExist =  todoRepository.existsById(todoId);
+        if(isExist){
+            todoRepository.deleteById(todoId);
+        } else {
+            throw new IllegalArgumentException("존재하지 않는 글입니다.");
+        }
+    }
 }
