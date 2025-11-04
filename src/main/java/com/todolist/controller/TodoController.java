@@ -2,6 +2,7 @@ package com.todolist.controller;
 
 import com.todolist.dto.*;
 import com.todolist.service.TodoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ public class TodoController {
     private final TodoService todoService;
 
     @PostMapping("/todo-list")
-    public ResponseEntity<CreateTodoResponse> createTodo (@RequestBody CreateTodoRequest request) {
+    public ResponseEntity<CreateTodoResponse> createTodo (@Valid @RequestBody CreateTodoRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(todoService.save(request));
     }
     @GetMapping("/todo-list/{todoId}")
@@ -34,7 +35,7 @@ public class TodoController {
         return ResponseEntity.status(HttpStatus.OK).body(todoService.update(todoId, request));
     }
     @DeleteMapping("/todo-list/{todoId}")
-    public ResponseEntity<Void> deleteTodo(@PathVariable Long todoId, @RequestBody DeleteTodoRequest request) {
+    public ResponseEntity<Void> deleteTodo(@PathVariable Long todoId, @Valid @RequestBody DeleteTodoRequest request) {
         todoService.delete(todoId, request);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

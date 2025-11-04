@@ -2,6 +2,7 @@ package com.todolist.controller;
 
 import com.todolist.dto.*;
 import com.todolist.service.CommentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ public class CommentController {
     @PostMapping("/todo-list/{todoId}/comments")
     public ResponseEntity<CreateCommentResponse> createComent (
             @PathVariable Long todoId,
-            @RequestBody CreateCommentRequest request) {
+            @Valid @RequestBody CreateCommentRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(commentService.save(todoId,request));
     }
 }
