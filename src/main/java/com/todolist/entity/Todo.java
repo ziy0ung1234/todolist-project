@@ -3,6 +3,9 @@ package com.todolist.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Entity
 @Table(name="todos")
@@ -17,6 +20,8 @@ public class Todo  extends BaseEntity{
     private String password;
     private String title;
     private String description;
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
 
     public Todo(String title, String description, String username, String password) {
