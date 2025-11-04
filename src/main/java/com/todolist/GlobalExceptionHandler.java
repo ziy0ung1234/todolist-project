@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestControllerAdvice
-public class TodoExceptionHandler {
+public class GlobalExceptionHandler {
 
     // IllegalArgumentException
     @ExceptionHandler(IllegalArgumentException.class)
