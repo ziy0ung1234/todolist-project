@@ -47,16 +47,15 @@ public class TodoService {
     }
 
     @Transactional(readOnly = true)
-    public List<GetOneTodoResponse> findAll(String username) {
+    public List<GetAllTodoResponse> findAll(String username) {
         List<Todo> todos;
         if (username != null) {
             todos = todoRepository.findAllByUsernameOrderByCreatedAtDesc(username);
         } else {
             todos = todoRepository.findAllByOrderByCreatedAtDesc();
         }
-
         return todos.stream()
-                .map(todo -> new GetOneTodoResponse(
+                .map(todo -> new GetAllTodoResponse(
                         todo.getId(),
                         todo.getUsername(),
                         todo.getTitle(),
@@ -69,13 +68,17 @@ public class TodoService {
     @Transactional(readOnly = true)
     public GetOneTodoResponse findOne(Long todoId) {
         Todo todo = findTodoOrException(todoId);
+        List<GetOneCommentResponse> commentResponses = todo.getComments().stream()
+                .map(GetOneCommentResponse::new)
+                .toList();
         return new GetOneTodoResponse(
                 todo.getId(),
                 todo.getUsername(),
                 todo.getTitle(),
                 todo.getDescription(),
                 todo.getCreatedAt(),
-                todo.getModifiedAt()
+                todo.getModifiedAt(),
+                commentResponses
         );
     }
 

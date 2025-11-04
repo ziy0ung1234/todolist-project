@@ -23,7 +23,7 @@ public class TodoController {
         return ResponseEntity.status(HttpStatus.OK).body(todoService.findOne(todoId));
     }
     @GetMapping("/todo-list")
-    public ResponseEntity<List<GetOneTodoResponse>> getAllTodos(@RequestParam(required=false) String username) {
+    public ResponseEntity<List<GetAllTodoResponse>> getAllTodos(@RequestParam(required=false) String username) {
         return ResponseEntity.status(HttpStatus.OK).body(todoService.findAll(username));
     }
     @PatchMapping("/todo-list/{todoId}")
