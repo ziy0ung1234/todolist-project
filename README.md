@@ -1,9 +1,9 @@
 # 일정 관리 앱 프로젝트
 ## ERD
-![Todo ERD](https://github.com/user-attachments/assets/ef15c018-a0b0-4d76-838a-581b17e53145)
+![Todo ERD](https://github.com/user-attachments/assets/d32ddd35-b1a5-4bdd-9253-03062f7a5b1f)
 
-## CRUD 명세
-### POST
+## API 명세
+### POST 할일/댓글
 - url `http://localhost:8080/todo-list`
 
 | key  | value type |
@@ -40,15 +40,49 @@
 ```json
 {
     "code": "VALIDATION_ERROR",
-    "message": "Request Body를 확인해 주세요."
+    "message": "Request Body를 확인해 주세요.",
+    "details": null
 }
 {
     "code": "VALIDATION_ERROR",
-    "message": "username값이 누락되었습니다."
+    "message": "유효성 검사 실패",
+    "details": {
+        "password": "비밀번호는 필수 값입니다.",
+        "description": "일정 내용은 필수 값입니다.",
+        "title": "크기가 0에서 30 사이여야 합니다",
+        "username": "이름은 필수 값입니다."
+    }
+}
+```
+- url `http://localhost:8080//todo-list/{todoId}/comments`
+    - path parameter type : int
+ 
+- 201 Response example
+```json
+{
+    "id": 1,
+    "content": "첫 댓글",
+    "username": "익명익명",
+    "password": "12341234",
+    "createdAt": "2025-11-04T20:14:53.166355",
+    "modifiedAt": "2025-11-04T20:14:53.166355"
+}
+```
+- 400 Response example
+```json
+{
+    "code": "VALIDATION_ERROR",
+    "message": "Request Body를 확인해 주세요.",
+    "details": null
 }
 {
     "code": "VALIDATION_ERROR",
-    "message": "password값이 누락되었습니다."
+    "message": "유효성 검사 실패",
+    "details": {
+        "password": "비밀번호는 필수 값입니다.",
+        "content": "댓글 내용은 필수 값입니다.",
+        "username": "이름은 필수 값입니다."
+    }
 }
 ```
 
@@ -59,12 +93,35 @@
 - 200 Response example
 ```json
 {
-    "id": 1,
-    "username": "ziy0ung",
-    "title": "첫번째 할일",
-    "description": "API 설계 및 ERD 작성",
-    "createdAt": "2025-11-04T07:50:08.207158",
-    "modifiedAt": "2025-11-04T07:50:08.207158"
+    "id": 2,
+    "username": "zisoo",
+    "title": "2번째 할일",
+    "description": " 일정 생성 기능 만들기",
+    "createdAt": "2025-11-04T14:32:09.843154",
+    "modifiedAt": "2025-11-04T14:32:09.843154",
+    "comments": [
+        {
+            "id": 1,
+            "username": "user1",
+            "content": "나도 나도",
+            "createdAt": "2025-11-04T14:34:23.417331",
+            "modifiedAt": "2025-11-04T14:34:23.417331"
+        },
+        {
+            "id": 2,
+            "username": "user2",
+            "content": "나는 아직",
+            "createdAt": "2025-11-04T14:35:38.948047",
+            "modifiedAt": "2025-11-04T14:35:38.948047"
+        },
+        {
+            "id": 3,
+            "username": "user3",
+            "content": "나는 완료",
+            "createdAt": "2025-11-04T14:35:40.546472",
+            "modifiedAt": "2025-11-04T14:35:40.546472"
+        }
+    ]
 }
 ```
 
@@ -72,7 +129,8 @@
 ```json
 {
     "code": "BAD_REQUEST",
-    "message": "존재하지 않는 글 입니다."
+    "message": "존재하지 않는 글입니다.",
+    "details": null
 }
 ```
 
@@ -174,7 +232,8 @@ query parameter
 ```json
 {
     "code": "BAD_REQUEST",
-    "message": "비밀번호가 일치하지 않습니다."
+    "message": "비밀번호가 일치하지 않습니다.",
+    "details": null
 }
 
 ```
@@ -199,10 +258,12 @@ query parameter
 ```json
 {
     "code": "BAD_REQUEST",
-    "message": "비밀번호가 일치하지 않습니다."
+    "message": "비밀번호가 일치하지 않습니다.",
+    "details": null
 }
 {
     "code": "BAD_REQUEST",
-    "message": "존재하지않는 글입니다."
+    "message": "존재하지않는 글입니다.",
+    "details": null
 }
 ```
