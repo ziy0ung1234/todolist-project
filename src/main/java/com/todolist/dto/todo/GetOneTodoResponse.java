@@ -1,5 +1,6 @@
-package com.todolist.dto;
+package com.todolist.dto.todo;
 
+import com.todolist.dto.comment.GetOneCommentResponse;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

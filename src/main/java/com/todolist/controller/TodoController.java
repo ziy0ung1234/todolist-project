@@ -1,6 +1,6 @@
 package com.todolist.controller;
 
-import com.todolist.dto.*;
+import com.todolist.dto.todo.*;
 import com.todolist.service.TodoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

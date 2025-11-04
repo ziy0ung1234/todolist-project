@@ -1,6 +1,5 @@
-package com.todolist;
+package com.todolist.exception;
 
-import com.todolist.dto.ErrorResponse;
 import org.hibernate.PropertyValueException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,14 +37,14 @@ public class GlobalExceptionHandler {
     }
     //MethodArgumentNotValidException
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
 
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
             errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+        ErrorResponse response = new ErrorResponse("VALIDATION_ERROR", "유효성 검사 실패", errors);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
     }

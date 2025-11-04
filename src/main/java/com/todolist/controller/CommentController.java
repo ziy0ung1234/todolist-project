@@ -1,6 +1,7 @@
 package com.todolist.controller;
 
-import com.todolist.dto.*;
+import com.todolist.dto.comment.CreateCommentRequest;
+import com.todolist.dto.comment.CreateCommentResponse;
 import com.todolist.service.CommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

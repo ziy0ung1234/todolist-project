@@ -1,31 +1,22 @@
 package com.todolist.service;
 
-import com.todolist.dto.*;
+import com.todolist.dto.comment.GetOneCommentResponse;
+import com.todolist.dto.todo.*;
 import com.todolist.entity.Todo;
 import com.todolist.repository.TodoRepository;
+import com.todolist.validator.GlobalValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class TodoService {
     private final TodoRepository todoRepository;
+    private final GlobalValidator globalValidator;
 
-    //---- 유틸 메서드 -----
-    private Todo findTodoOrException(Long todoId) {
-        return todoRepository.findById(todoId).orElseThrow(
-                ()-> new IllegalArgumentException("존재하지 않는 글입니다.")
-        );
-    }
-    private void validatePassword(Todo todo, String password) {
-        if(!Objects.equals(todo.getPassword(), password)) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        }
-    }
     @Transactional
     public CreateTodoResponse save(CreateTodoRequest request) {
 
@@ -67,7 +58,7 @@ public class TodoService {
     }
     @Transactional(readOnly = true)
     public GetOneTodoResponse findOne(Long todoId) {
-        Todo todo = findTodoOrException(todoId);
+        Todo todo = globalValidator.findTodoOrException(todoId);
         List<GetOneCommentResponse> commentResponses = todo.getComments().stream()
                 .map(GetOneCommentResponse::new)
                 .toList();
@@ -84,9 +75,9 @@ public class TodoService {
 
     @Transactional
     public UpdateTodoResponse update(Long todoId, UpdateTodoRequest request) {
-        Todo todo = findTodoOrException(todoId);
+        Todo todo = globalValidator.findTodoOrException(todoId);
         // 비밀번호 검증
-        validatePassword(todo, request.getPassword());
+        globalValidator.validatePassword(todo, request.getPassword());
         // 선택적 수정
         if (request.getTitle() != null && !request.getTitle().isBlank()) {
             todo.updateTitle(request.getTitle());
@@ -103,8 +94,8 @@ public class TodoService {
     }
     @Transactional
     public void delete(Long todoId, DeleteTodoRequest request) {
-        Todo todo = findTodoOrException(todoId);
-        validatePassword(todo, request.getPassword());
+        Todo todo = globalValidator.findTodoOrException(todoId);
+        globalValidator.validatePassword(todo, request.getPassword());
         todoRepository.deleteById(todoId);
     }
 }

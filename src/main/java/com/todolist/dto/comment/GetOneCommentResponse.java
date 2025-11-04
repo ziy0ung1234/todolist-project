@@ -1,4 +1,4 @@
-package com.todolist.dto;
+package com.todolist.dto.comment;
 
 import com.todolist.entity.Comment;
 import lombok.Getter;
