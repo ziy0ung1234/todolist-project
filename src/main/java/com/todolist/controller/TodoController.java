@@ -14,26 +14,26 @@ import java.util.List;
 public class TodoController {
     private final TodoService todoService;
 
-    @PostMapping("/todos")
+    @PostMapping("/todo-list")
     public ResponseEntity<CreateTodoResponse> createTodo (@RequestBody CreateTodoRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(todoService.save(request));
     }
-    @GetMapping("/todos/{todoId}")
+    @GetMapping("/todo-list/{todoId}")
     public ResponseEntity<GetOneTodoResponse> getOneTodo (@PathVariable Long todoId) {
         return ResponseEntity.status(HttpStatus.OK).body(todoService.findOne(todoId));
     }
-    @GetMapping("/todos")
+    @GetMapping("/todo-list")
     public ResponseEntity<List<GetOneTodoResponse>> getAllTodos(@RequestParam(required=false) String username) {
         return ResponseEntity.status(HttpStatus.OK).body(todoService.findAll(username));
     }
-    @PatchMapping("/todos/{todoId}")
+    @PatchMapping("/todo-list/{todoId}")
     public ResponseEntity<UpdateTodoResponse> updateTodo(
             @PathVariable Long todoId,
             @RequestBody UpdateTodoRequest request
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(todoService.update(todoId, request));
     }
-    @DeleteMapping("/todos/{todoId}")
+    @DeleteMapping("/todo-list/{todoId}")
     public ResponseEntity<Void> deleteTodo(@PathVariable Long todoId, @RequestBody DeleteTodoRequest request) {
         todoService.delete(todoId, request);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
