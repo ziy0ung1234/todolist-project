@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class GetOneTodoResponse {
-    private final Long todoId;
+    private final Long id;
     private final String username;
     private final String title;
     private final String description;
@@ -14,7 +14,7 @@ public class GetOneTodoResponse {
     private final LocalDateTime modifiedAt;
 
     public GetOneTodoResponse(Long todoId, String username, String title, String description, LocalDateTime createdAt, LocalDateTime modifiedAt) {
-        this.todoId = todoId;
+        this.id = todoId;
         this.username = username;
         this.title = title;
         this.description = description;

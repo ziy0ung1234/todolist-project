@@ -8,12 +8,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class TodoService {
     private final TodoRepository todoRepository;
 
+    //---- 유틸 메서드 -----
+    private Todo findTodoOrException(Long todoId) {
+        return todoRepository.findById(todoId).orElseThrow(
+                ()-> new IllegalArgumentException("존재하지 않는 글입니다.")
+        );
+    }
+    private void validatePassword(Todo todo, String password) {
+        if(!Objects.equals(todo.getPassword(), password)) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+    }
     @Transactional
     public CreateTodoResponse save(CreateTodoRequest request) {
 
@@ -56,9 +68,7 @@ public class TodoService {
     }
     @Transactional(readOnly = true)
     public GetOneTodoResponse findOne(Long todoId) {
-        Todo todo = todoRepository.findById(todoId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 글 입니다.")
-        );
+        Todo todo = findTodoOrException(todoId);
         return new GetOneTodoResponse(
                 todo.getId(),
                 todo.getUsername(),
@@ -71,14 +81,9 @@ public class TodoService {
 
     @Transactional
     public UpdateTodoResponse update(Long todoId, UpdateTodoRequest request) {
-        Todo todo = todoRepository.findById(todoId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 글입니다.")
-        );
+        Todo todo = findTodoOrException(todoId);
         // 비밀번호 검증
-        if (!todo.getPassword().equals(request.getPassword())) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        }
-
+        validatePassword(todo, request.getPassword());
         // 선택적 수정
         if (request.getTitle() != null && !request.getTitle().isBlank()) {
             todo.updateTitle(request.getTitle());
@@ -92,5 +97,11 @@ public class TodoService {
                 todo.getUsername(),
                 todo.getModifiedAt()
         );
+    }
+    @Transactional
+    public void delete(Long todoId, DeleteTodoRequest request) {
+        Todo todo = findTodoOrException(todoId);
+        validatePassword(todo, request.getPassword());
+        todoRepository.deleteById(todoId);
     }
 }
