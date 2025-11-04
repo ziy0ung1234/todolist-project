@@ -94,7 +94,7 @@ public class TodoService {
                 todo.getModifiedAt()
         );
     }
-
+    @Transactional
     public void delete(Long todoId, DeleteTodoRequest request) {
         Todo todo = todoRepository.findById(todoId).orElseThrow(
                 () -> new IllegalArgumentException("존재하지않는 글입니다."));
