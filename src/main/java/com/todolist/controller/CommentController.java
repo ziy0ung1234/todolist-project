@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/todo-list")
+@RequestMapping("/todos")
 public class CommentController {
     private final CommentService commentService;
 
