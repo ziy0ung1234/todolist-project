@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/todo-list")
 public class CommentController {
     private final CommentService commentService;
 
-    @PostMapping("/todo-list/{todoId}/comments")
-    public ResponseEntity<CreateCommentResponse> createComent (
+    @PostMapping("/{todoId}/comments")
+    public ResponseEntity<CreateCommentResponse> createComment(
             @PathVariable Long todoId,
             @Valid @RequestBody CreateCommentRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(commentService.save(todoId,request));
