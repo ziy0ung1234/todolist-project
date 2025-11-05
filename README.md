@@ -4,7 +4,7 @@
 
 ## API 명세
 ### POST 할일/댓글
-- url `http://localhost:8080/todo-list`
+- url `http://localhost:8080/todos`
 
 | key  | value type |
 | --- | --- | 
@@ -54,7 +54,7 @@
     }
 }
 ```
-- url `http://localhost:8080//todo-list/{todoId}/comments`
+- url `http://localhost:8080//todos/{todoId}/comments`
     - path parameter type : int
  
 - 201 Response example
@@ -87,7 +87,7 @@
 ```
 
 ### GET (단건)
-- url `http://localhost:8080/todo-list/{todoId}`
+- url `http://localhost:8080/todos/{todoId}`
   - path parameter type : int
 
 - 200 Response example
@@ -136,7 +136,7 @@
 
 ### GET (다건)
 - 전체 조회 (내림차순)
-   - url `http://localhost:8080/todo-list`
+   - url `http://localhost:8080/todos`
 
 - 200 Response example
 ```json
@@ -171,7 +171,7 @@
 
 
 - 특정 username 필터 조회 (내림차순)
-    - url` http://localhost:8080/todo-list?username=`
+    - url` http://localhost:8080/todos?username=`
 
 query parameter
 | key  | value type |
@@ -200,7 +200,7 @@ query parameter
 ]
 ```
 ### PATCH
-- url `http://localhost:8080/todo-list/{todoId}`
+- url `http://localhost:8080/todos/{todoId}`
   - path parameter type : int
 
 | key  | value type |
@@ -239,7 +239,7 @@ query parameter
 ```
 
 ### DELETE
-- url `http://localhost:8080/todo-list/{todoId}`
+- url `http://localhost:8080/todos/{todoId}`
    - path parameter type : int
 
   
