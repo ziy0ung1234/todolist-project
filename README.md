@@ -1,6 +1,7 @@
 # 일정 관리 앱 프로젝트
 ## ERD
-![Todo ERD](https://github.com/user-attachments/assets/d32ddd35-b1a5-4bdd-9253-03062f7a5b1f)
+
+![Todo ERD](https://github.com/user-attachments/assets/103ab81f-cc62-4787-b8ff-7374e4cd3a5e)
 
 ## API 명세
 ### POST 할일/댓글
